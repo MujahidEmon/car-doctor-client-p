@@ -1,7 +1,17 @@
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.svg'
+import { useContext } from 'react';
+import { AuthContext } from '../../Provider/AuthProvider';
 
 const Navbar = () => {
+  const {user, logOut} = useContext(AuthContext);
+
+  const handleLogout = () => {
+    logOut()
+    .then()
+    .catch()
+  }
+
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
@@ -35,7 +45,7 @@ const Navbar = () => {
           </ul>
         </div>
         <Link>
-            <img src={logo} alt="" srcset="" />  
+            <img src={logo} alt=""   className='w-10'/>  
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
@@ -48,7 +58,7 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        {user ? <button onClick={handleLogout} className="btn">Logout</button> : <Link to={'/login'} className="btn">Login</Link>}
       </div>
     </div>
   );
